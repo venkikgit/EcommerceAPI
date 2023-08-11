@@ -6,8 +6,11 @@ const app = express();
 // adding body parser 
 const bodyParser = require('body-parser');
 
+var morgan = require('morgan')
+
 // Port Number information
 const port = process.env.PORT || 8000 ;
+
 
 const path = require('path');
 // Connecting to the DB
@@ -18,11 +21,13 @@ const passport = require('passport');
 const passportLocal = require('./config/passport-local-strategy');
 const passportJWT = require('./config/passport-jwt-strategy');
 const MongoStore = require('connect-mongo');
+app.use(morgan("dev"));
 app.use(express.json());
 // app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({extended: true}));
+
 app.use(cookieParser());
 app.use(session({
     name:'EcommerceAPI',
